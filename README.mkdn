@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/reneeb/Types-RENEEB.svg?branch=master)](https://travis-ci.org/reneeb/Types-RENEEB)
-[![Kwalitee status](http://cpants.cpanauthors.org/dist/Types-RENEEB.png)](http://cpants.charsbar.org/dist/overview/Types-RENEEB)
-[![GitHub issues](https://img.shields.io/github/issues/reneeb/Types-RENEEB.svg)](https://github.com/reneeb/Types-RENEEB/issues)
+[![Build Status](https://travis-ci.org/reneeb/Types-Mojo.svg?branch=master)](https://travis-ci.org/reneeb/Types-Mojo)
+[![Kwalitee status](http://cpants.cpanauthors.org/dist/Types-Mojo.png)](http://cpants.charsbar.org/dist/overview/Types-Mojo)
+[![GitHub issues](https://img.shields.io/github/issues/reneeb/Types-Mojo.svg)](https://github.com/reneeb/Types-Mojo/issues)
 
 # NAME
 
@@ -203,13 +203,13 @@ The distribution is contained in a Git repository, so simply clone the
 repository
 
 ```
-$ git clone git://github.com/reneeb/Types-RENEEB.git
+$ git clone git://github.com/reneeb/Types-Mojo.git
 ```
 
 and change into the newly-created directory.
 
 ```
-$ cd Types-RENEEB
+$ cd Types-Mojo
 ```
 
 The project uses [`Dist::Zilla`](https://metacpan.org/pod/Dist::Zilla) to

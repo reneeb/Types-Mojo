@@ -5,13 +5,13 @@ The distribution is contained in a Git repository, so simply clone the
 repository
 
 ```
-$ git clone git://github.com/reneeb/Types-RENEEB.git
+$ git clone git://github.com/reneeb/Types-Mojo.git
 ```
 
 and change into the newly-created directory.
 
 ```
-$ cd Types-RENEEB
+$ cd Types-Mojo
 ```
 
 The project uses [`Dist::Zilla`](https://metacpan.org/pod/Dist::Zilla) to
