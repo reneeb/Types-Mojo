@@ -8,7 +8,7 @@ Types::Mojo - Types related to Mojo
 
 # VERSION
 
-version 0.01
+version 0.02
 
 # SYNOPSIS
 
