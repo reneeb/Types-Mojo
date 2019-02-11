@@ -165,6 +165,17 @@ An object of L<Mojo::File>
 
 A C<MojoCollection> of C<MojoFile>s.
 
+=head2 MojoURL[`a]
+
+An object of L<Mojo::URL>. Can be parameterized with a scheme.
+
+    has http_url => ( is => 'rw', isa => MojoURL["https?"] ); # s? means plain or secure -> http or https
+    has ftp_url  => ( is => 'rw', isa => MojoURL["ftp"] );
+
+=head2 MojoUserAgent
+
+An object of L<Mojo::UserAgent>
+
 =head1 COERCIONS
 
 These coercions are defined.
@@ -320,3 +331,33 @@ In the script
 
 =back
 
+=head2 To MojoURL
+
+=over 4
+
+=item * String to MojoURL
+
+In a class
+
+    package Test;
+    
+    use Moo;
+    use Types::Mojo qw(MojoFile);
+    
+    has 'file' => ( is => 'ro', isa => MojoURL, coerce => 1 );
+    
+    1;
+
+In the script
+
+    use Test;
+
+    use v5.22;
+
+    my $obj = Test->new(
+        url => 'http://perl-services.de',
+    );
+    
+    say $obj->url->host;
+
+=back
