@@ -8,7 +8,7 @@ Types::Mojo - Types related to Mojo
 
 # VERSION
 
-version 0.02
+version 0.03
 
 # SYNOPSIS
 
@@ -51,6 +51,17 @@ An object of [Mojo::File](https://metacpan.org/pod/Mojo::File)
 ## MojoFileList
 
 A `MojoCollection` of `MojoFile`s.
+
+## MojoURL\[\`a\]
+
+An object of [Mojo::URL](https://metacpan.org/pod/Mojo::URL). Can be parameterized with a scheme.
+
+    has http_url => ( is => 'rw', isa => MojoURL["https?"] ); # s? means plain or secure -> http or https
+    has ftp_url  => ( is => 'rw', isa => MojoURL["ftp"] );
+
+## MojoUserAgent
+
+An object of [Mojo::UserAgent](https://metacpan.org/pod/Mojo::UserAgent)
 
 # COERCIONS
 
@@ -194,6 +205,33 @@ These coercions are defined.
         for my $file ( @{ $obj->files->to_array } ) {
             say $file->basename;
         }
+
+## To MojoURL
+
+- String to MojoURL
+
+    In a class
+
+        package Test;
+        
+        use Moo;
+        use Types::Mojo qw(MojoFile);
+        
+        has 'file' => ( is => 'ro', isa => MojoURL, coerce => 1 );
+        
+        1;
+
+    In the script
+
+        use Test;
+
+        use v5.22;
+
+        my $obj = Test->new(
+            url => 'http://perl-services.de',
+        );
+        
+        say $obj->url->host;
 
 
 
