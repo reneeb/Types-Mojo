@@ -9,13 +9,14 @@ use warnings;
 
 use Type::Library
    -base,
-   -declare => qw( MojoCollection MojoFile MojoFileList );
+   -declare => qw( MojoCollection MojoFile MojoFileList MojoUserAgent MojoURL );
 
 use Type::Utils -all;
 use Types::Standard -types;
 
 use Mojo::File;
 use Mojo::Collection;
+use Mojo::URL;
 use Scalar::Util qw(blessed);
 use List::Util qw(first);
 
@@ -56,6 +57,8 @@ coerce MojoCollection,
     from ArrayRef, via { Mojo::Collection->new( @{$_} ) }
 ;
 
+class_type MojoUserAgent, { class => 'Mojo::UserAgent' };
+
 class_type MojoFile, { class => 'Mojo::File' };
 
 coerce MojoFile,
@@ -81,6 +84,40 @@ coerce MojoFileList,
             Mojo::Collection->new( @{ $_ } );
         }
 ;
+
+$meta->add_type(
+    name => 'MojoURL',
+    parent => InstanceOf['Mojo::URL'],
+    constraint_generator => sub {
+        return $meta->get_type('MojoURL') if !@_;
+
+        my $type  = $_[0];
+        my ($scheme, $secure) = $type =~ m{(.*?)(s\?)?\z};
+
+        return sub {
+            return if !blessed $_ and $_->isa('Mojo::Collection');
+
+            return 1 if $_->scheme eq $scheme;
+            return 1 if $secure && $_->scheme eq $scheme . 's';
+
+            return;
+        };
+    },
+    coercion_generator => sub {
+        my ($parent, $child, $param) = @_;
+        return $parent->coercion;
+    },
+);
+
+coerce MojoURL,
+    from Str, via { Mojo::URL->new( $_ ) }
+;
+
+coerce MojoCollection,
+    from ArrayRef, via { Mojo::Collection->new( @{$_} ) }
+;
+
+class_type MojoFile, { class => 'Mojo::File' };
 
 __PACKAGE__->meta->make_immutable;
 
