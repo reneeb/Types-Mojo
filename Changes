@@ -1,6 +1,11 @@
 Revision history for Types::Mojo
 ================================
 
+0.04  2019-02-12 07:47:00
+
+    * remove doubled class_type definition
+    * fix typos
+
 0.03  2019-02-11 13:18:00
 
     * add types: MojoURL, MojoUserAgent

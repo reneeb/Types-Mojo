@@ -22,7 +22,7 @@ use List::Util qw(first);
 
 Type::Utils::extends(qw/Types::Standard/);
 
-our $VERSION = 0.03;
+our $VERSION = 0.04;
 
 my $meta = __PACKAGE__->meta;
 
