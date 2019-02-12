@@ -27,7 +27,7 @@ describe 'MojoURL' => sub {
         is $obj->url->scheme, 'http';
     };
 
-    it 'parameterizned with "https?" to accept only http and https urls' => sub {
+    it 'parameterized with "https?" to accept only http and https urls' => sub {
         my $check  = MojoURL["https?"];
         my $http_return = $check->(Mojo::URL->new('http://perl-services.de'));
         ok $http_return;
@@ -45,7 +45,7 @@ describe 'MojoURL' => sub {
         like $error, qr/did not pass/;
     };
 
-    it '"http_url" accept only http url -> ok' => sub {
+    it '"http_url" accepts only http url -> ok' => sub {
         my $error = '';
         eval {
             my $obj = TestClass->new( http_url => Mojo::URL->new( 'http://perl-services.de' ) );
@@ -68,7 +68,7 @@ describe 'MojoURL' => sub {
         is $error, '';
     };
 
-    it '"http_url" accept only http url -> fails' => sub {
+    it '"http_url" accepts only http url -> fails' => sub {
         my $error = '';
         eval {
             my $obj = TestClass->new( http_url => Mojo::URL->new( 'ftp://ftp.otrs.org' ) );
