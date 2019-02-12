@@ -95,7 +95,7 @@ $meta->add_type(
         my ($scheme, $secure) = $type =~ m{(.*?)(s\?)?\z};
 
         return sub {
-            return if !blessed $_ and $_->isa('Mojo::Collection');
+            return if !blessed $_ and $_->isa('Mojo::URL');
 
             return 1 if $_->scheme eq $scheme;
             return 1 if $secure && $_->scheme eq $scheme . 's';
@@ -116,8 +116,6 @@ coerce MojoURL,
 coerce MojoCollection,
     from ArrayRef, via { Mojo::Collection->new( @{$_} ) }
 ;
-
-class_type MojoFile, { class => 'Mojo::File' };
 
 __PACKAGE__->meta->make_immutable;
 
