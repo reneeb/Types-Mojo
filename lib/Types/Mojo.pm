@@ -19,9 +19,6 @@ use Mojo::File;
 use Mojo::Collection;
 use Mojo::URL;
 use Scalar::Util qw(blessed);
-use List::Util qw(first);
-
-Type::Utils::extends(qw/Types::Standard/);
 
 our $VERSION = 0.04;
 
@@ -34,6 +31,7 @@ $meta->add_type(
         return $meta->get_type('MojoCollection') if !@_;
 
         my $check = $_[0] // '';
+
         croak "Parameter to MojoCollection[`a] expected to be a type constraint; got $check"
             if !blessed $check || !$check->isa('Type::Tiny');
 
@@ -129,6 +127,7 @@ __PACKAGE__->meta->make_immutable;
     
     use Moo;
     use Types::Mojo qw(MojoFile MojoCollection);
+    use Types::Standard qw(Int);
     
     has file => ( is => 'rw', isa => MojoFile, coerce => 1 );
     has coll => ( is => 'rw', isa => MojoCollection, coerce => 1 );
