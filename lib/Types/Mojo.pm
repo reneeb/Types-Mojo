@@ -14,6 +14,7 @@ use Type::Library
 use Type::Utils -all;
 use Types::Standard -types;
 
+use Carp;
 use Mojo::File;
 use Mojo::Collection;
 use Mojo::URL;
@@ -32,9 +33,10 @@ $meta->add_type(
     constraint_generator => sub {
         return $meta->get_type('MojoCollection') if !@_;
 
-        my $type  = $_[0];
-        my $check = $meta->get_type( $_[0] );
-        
+        my $check = $_[0] // '';
+        croak "Parameter to MojoCollection[`a] expected to be a type constraint; got $check"
+            if !blessed $check || !$check->isa('Type::Tiny');
+
         return sub {
             return if !blessed $_ and $_->isa('Mojo::Collection');
 
