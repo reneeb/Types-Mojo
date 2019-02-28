@@ -10,7 +10,7 @@ use lib dirname(__FILE__);
 
 use TestClass;
 use Mojo::Collection;
-use Types::Mojo qw(MojoCollection);
+use Types::Mojo qw(MojoCollection Int InstanceOf);
 
 describe 'MojoCollection' => sub {
     it 'accepts a Mojo::Collection object' => sub {
@@ -25,8 +25,17 @@ describe 'MojoCollection' => sub {
         is_deeply $obj->coll->to_array, [qw/a b/];
     };
 
-    it 'parameterizned with "Int" to accept only integers' => sub {
-        my $check  = MojoCollection["Int"];
+    it 'can be parameterized only with Type::Tiny constraints' => sub {
+        my $error = '';
+        eval {
+            my $check = MojoCollection['Int'];
+        } or $error = $@;
+
+        like $error, qr/expected to be a type constraint/;
+    };
+
+    it 'parameterized with Int to accept only integers' => sub {
+        my $check  = MojoCollection[Int];
         my $return = $check->(Mojo::Collection->new(1..10));
         ok $return;
 
@@ -44,6 +53,31 @@ describe 'MojoCollection' => sub {
 
         eval {
             $mix_return = $check->( Mojo::Collection->new(1, 2, 3, 'a') );
+        } or $error = $@;
+
+        ok !$mix_return;
+        like $error, qr/did not pass/;
+    };
+
+    it 'parameterized with InstanceOf["TestClass"] to accept only instances of TestClass' => sub {
+        my $check  = MojoCollection[InstanceOf['TestClass']];
+        my $return = $check->(Mojo::Collection->new(TestClass->new, TestClass->new));
+        ok $return;
+
+        my $error = '';
+        my $str_return;
+        eval {
+            $str_return = $check->( Mojo::Collection->new('a') );
+        } or $error = $@;
+
+        ok !$str_return;
+        like $error, qr/did not pass/;
+
+        $error = '';
+        my $mix_return;
+
+        eval {
+            $mix_return = $check->( Mojo::Collection->new(TestClass->new, TestClass->new, 'a') );
         } or $error = $@;
 
         ok !$mix_return;
