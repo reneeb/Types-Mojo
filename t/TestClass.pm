@@ -3,6 +3,7 @@ package  # private package - do not index
 
 use Moo;
 use Types::Mojo qw(:all);
+use Types::Standard qw(Int);
 
 has file => ( is => 'rw', isa => MojoFile, coerce => 1 );
 has coll => ( is => 'rw', isa => MojoCollection, coerce => 1 );
@@ -13,6 +14,7 @@ has url  => ( is => 'rw', isa => MojoURL, coerce => 1 );
 
 has http_url => ( is => 'rw', isa => MojoURL["https?"], coerce => 1 );
 has ftp_url  => ( is => 'rw', isa => MojoURL["ftp"], coerce => 1 );
+has nested   => ( is => 'rw', isa => MojoCollection[ MojoCollection[Int] ], coerce => 1 );
 
 1;
 
