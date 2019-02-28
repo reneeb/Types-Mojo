@@ -10,7 +10,8 @@ use lib dirname(__FILE__);
 
 use TestClass;
 use Mojo::Collection;
-use Types::Mojo qw(MojoCollection Int InstanceOf);
+use Types::Mojo qw(MojoCollection);
+use Types::Standard qw(Int InstanceOf);
 
 describe 'MojoCollection' => sub {
     it 'accepts a Mojo::Collection object' => sub {
@@ -101,6 +102,21 @@ describe 'MojoCollection' => sub {
 
         like $error, qr/did not pass/;
     };
+
+
+    # TODO
+#    it 'supports coercion of nested types' => sub {
+#        my $obj = TestClass->new( nested => [ [1], [2,3] ] );
+#
+#        ok $obj->nested->first->isa('Mojo::Collection');
+#
+#        my $sum = 0;
+#        $obj->nested->each( sub {
+#            $_->each( sub { $sum += $_ } );
+#        });
+#
+#        is $sum, 6;
+#    };
 };
 
 
