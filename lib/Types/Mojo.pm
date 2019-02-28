@@ -20,7 +20,7 @@ use Mojo::Collection;
 use Mojo::URL;
 use Scalar::Util qw(blessed);
 
-our $VERSION = 0.04;
+our $VERSION = '0.05';
 
 my $meta = __PACKAGE__->meta;
 
