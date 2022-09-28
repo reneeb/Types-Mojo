@@ -113,10 +113,6 @@ coerce MojoURL,
     from Str, via { Mojo::URL->new( $_ ) }
 ;
 
-coerce MojoCollection,
-    from ArrayRef, via { Mojo::Collection->new( @{$_} ) }
-;
-
 __PACKAGE__->meta->make_immutable;
 
 1;
