@@ -7,6 +7,8 @@ use v5.10;
 use strict;
 use warnings;
 
+# VERSION
+
 use Type::Library
    -base,
    -declare => qw( MojoCollection MojoFile MojoFileList MojoUserAgent MojoURL );
@@ -19,8 +21,6 @@ use Mojo::File;
 use Mojo::Collection;
 use Mojo::URL;
 use Scalar::Util qw(blessed);
-
-our $VERSION = '0.05';
 
 my $meta = __PACKAGE__->meta;
 
